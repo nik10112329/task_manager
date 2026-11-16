@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:task_manager/app/models/app_meta_data.dart';
+import 'package:task_manager/app/theme/app_theme_extensions.dart';
+
+class AppVersion extends StatelessWidget {
+  const AppVersion({required this.metaData, super.key});
+
+  final AppMetaData metaData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: InkWell(
+        onTap: () =>
+            Clipboard.setData(ClipboardData(text: metaData.fullVersion)),
+        child: Text(
+          metaData.fullVersion,
+          style: context.styles.h1.copyWith(
+            color: context.colors.background.withValues(alpha: .5),
+            fontSize: 8,
+          ),
+        ),
+      ),
+    );
+  }
+}

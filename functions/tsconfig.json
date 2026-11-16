@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017"],
+    "module": "commonjs",
+    "strict": false,
+    "skipLibCheck": true
+  },
+"compileOnSave": true,
+"include": ["src"]
+}

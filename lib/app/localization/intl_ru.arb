@@ -1,0 +1,101 @@
+{
+  "@@locale": "ru",
+  "ipLocation": "IP-локация",
+  "cart": "Корзина",
+  "profile": "Профиль",
+  "search": "Поиск",
+  "clear": "Очистить",
+  "personal_account": "Личный кабинет",
+  "home_view_header": "Главная",
+  "welcome_message": "Привет, {name}!",
+  "@welcome_message": {
+    "description": "Приветствие с параметром имени",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "Михаил"
+      }
+    }
+  },
+  "welcome_wishes": "Have a nice day",
+  "task_manager": "Task Manager",
+  "login": "Логин",
+  "log_in": "Войти",
+  "password": "Пароль",
+  "forgot_password": "Забыли пароль?",
+  "sign_up": "Регистрация",
+  "new_user": "Нет аккаунта?",
+  "or_continue_with": "Или продолжить с",
+  "add_participants": "Добавить участников",
+  "participants": "Участники",
+  "owner": "Владелец",
+  "project_name": "Название проекта",
+  "start_date": "Дата начала",
+  "end_date": "Дата окончания",
+  "date_placeholder": "дд месяц гггг",
+  "create_project": "Создать проект",
+  "create": "Создать",
+  "select_participants": "Выбрать участников",
+  "search_by_name_email": "Поиск по имени или email",
+  "done": "Готово",
+  "tasks": "Задачи",
+  "notifications_with_colon": "Уведомления:",
+  "no_notifications_yet": "Пока нет уведомлений",
+  "project_tasks": "Задачи проекта:",
+  "project_update": "Проект обновлён",
+  "task_deleted": "Задача удалена",
+  "delete": "Удалить",
+  "cancel": "Отмена",
+  "remove_task_name": "Удалить задачу \"{task_name}\"",
+  "@remove_task_name": {
+    "description": "Удаление задачи с названием имени",
+    "placeholders": {
+      "task_name": {
+        "type": "String",
+        "example": "Задача 1"
+      }
+    }
+  },
+  "save": "Сохранить",
+  "appoint": "Назначить",
+  "one_responsible_person": "1 ответсвенный",
+  "responsibility_length": "{local_responsible_length} ответственных",
+  "@responsibility_length": {
+    "description": "Количество ответственных",
+    "placeholders": {
+      "local_responsible_length": {
+        "type": "int",
+        "example": "25"
+      }
+    }
+  },
+  "deadline": "Дедлайн",
+  "enter_the_task_name": "Введите название задачи",
+  "enter_the_start_date": "Выберите дату начала",
+  "task_name": "Название задачи",
+  "create_task": "Создать задачу",
+  "tags": "Теги",
+  "search_or_create_tags": "Найти или создать тег",
+  "save_changes": "Сохранить изменения",
+  "add_tags": "Добавить теги",
+  "project_updated": "Проект обновлен",
+  "today": "Сегодня",
+  "end_week": "Конец недели",
+  "end_month": "Конец месяца",
+  "after_week": "Через неделю",
+  "filters": "Фильтры",
+  "ninty_nine_plus": "99+",
+  "todo": "Todo",
+  "in_progress": "In progress",
+  "on_review": "On review",
+  "blocked": "Blocked",
+  "cancelled": "Cancelled",
+  "status_done": "Done",
+  "tasks_not_found": "В проекте пока нет задач или задачи были не найдены",
+  "by_deadline": "По дедлайну",
+  "by_status": "По статусу",
+  "settings": "Настройки",
+  "task_archive": "Архив задач",
+  "about_app": "О приложении",
+  "reports": "Отчеты"
+}
