@@ -1,165 +1,58 @@
-# How to use
-Select [empty-template](https://gitlab.com/umbrella-web/flutter/template/-/tree/empty-template) branch and [download archive](https://gitlab.com/umbrella-web/flutter/template/-/archive/empty-template/template-empty-template.zip). Change Bundle ID and Package Name.
+# Task Manager
 
-## Stack
+Пет-проект «Таск-менеджер» на **Flutter** с бэкендом на **Firebase**.
 
-[**Dart**](https://dart.dev/), [**Flutter**](https://flutter.dev/),
-[**BLoC**](https://bloclibrary.dev/#/), [**Go Router**](https://pub.dev/packages/go_router)
+> **Статус бэкенда:** серверная часть переписывается на собственный сервис на **Go** ([task-manager_backend](https://github.com/nik10112329/task-manager_backend)). В текущей версии приложение работает с Firebase, подключение Go-бэкенда ещё не включено.
 
-## Installing Flutter environment
+## Возможности
 
-- [**install Flutter**](https://docs.flutter.dev/get-started/install)
-- for iOS build [**install Xcode**](https://developer.apple.com/xcode/) +
-  [**CocoaPods**](https://guides.cocoapods.org/using/getting-started.html#installation)
-- for Android build [**install Android Studio**](https://developer.android.com/studio/)
-- add Flutter path to shell config(ex: .zshrc or .bashrc):
+- Создание и управление проектами
+- Создание задач и управление ими (статусы, теги, дедлайны, ответственные)
+- Архив задач, поиск пользователей
+- Авторизация через **Google**, **GitHub** и **VK ID** (OAuth 2.0)
+- Push- и локальные уведомления (Firebase Cloud Messaging, RuStore Push)
+- Светлая/тёмная тема, кастомные шейдеры, локализация (русский / английский)
 
-```bash
-$ nano ~/.zshrc
-```
+## Стек
 
-add with **changed** Flutter path
+- **Dart**, **Flutter**
+- **BLoC** — flutter_bloc + side effects + bloc_concurrency
+- **Кодогенерация** — Freezed, json_serializable, build_runner, Retrofit, AutoRoute, flutter_gen, theme_tailor
+- **Firebase** — Firestore, Cloud Functions, Cloud Messaging, Crashlytics
+- **Dio**, OAuth 2.0, JWT, Secure Storage
+- **Flutter Shaders** — кастомные GLSL-эффекты
 
-```
-export PATH="$PATH:<path to flutter>/bin"
-```
+## Как запустить
 
-save and run
-
-```bash
-$ source ~/.zshrc
-```
-
-## How to run
-
-- add *env=prod* (default **dev**) define argument to run prod environment
+1. Установи Flutter — [docs.flutter.dev/get-started/install](https://docs.flutter.dev/get-started/install).
+2. Добавь файлы окружения с секретами (см. ниже) — в git они **не** попадают.
+3. Подложи `android/app/google-services.json` и `ios/Runner/GoogleService-Info.plist` от своего Firebase-проекта.
+4. Установи зависимости и запусти:
 
 ```bash
-$ flutter run --dart-define="env=prod"
+flutter pub get
+flutter run --dart-define="env=dev"    # dev-окружение (по умолчанию)
+flutter run --dart-define="env=prod"   # prod-окружение
 ```
 
-## IDEA templates
-Read more about [**templates**](templates/README.md)
+## Окружение
 
+Секреты хранятся в `.configs/dev/configs.env` и `.configs/prod/configs.env` (эти файлы gitignored). Формат:
 
-## Project structure
 ```
-├── assets                                                  - also contains environment configuration
-│   └── env_configs                                         - add environment variables to env files, add folder to gitignore if necessary
-│       ├── dev
-│       │   └── configs.env
-│       └── prod
-│           └── configs.env
-├── lib
-│   ├── app                                                 - contains core and common application functionality
-│   │   ├── app.dart                                        - application widget
-│   │   ├── core
-│   │   │   ├── app_initializer.dart                        - place where dependencies are actually initialized
-│   │   │   ├── app_meta_data.dart                          - implement different meta data like run count here 
-│   │   │   └── env.dart                                    - add env variables reading here
-│   │   ├── dependencies
-│   │   │   └── dependencies.dart                           - initialize dependencies here
-│   │   ├── dio_interceptors                                - implement dio interceptor like auth interceptor
-│   │   │   └── log_interceptor.dart
-│   │   ├── extensions                                      - add common extensions here
-│   │   │   ├── context.dart
-│   │   │   └── string.dart
-│   │   ├── localization                                    - append localization stings to arb files
-│   │   │   ├── generated
-│   │   │   │   ├── intl
-│   │   │   │   │   ├── messages_all.dart
-│   │   │   │   │   ├── messages_en.dart
-│   │   │   │   │   └── messages_ru.dart
-│   │   │   │   └── l10n.dart
-│   │   │   ├── intl_en.arb
-│   │   │   └── intl_ru.arb
-│   │   ├── logging
-│   │   │   ├── bloc_logging
-│   │   │   │   ├── bloc_log.dart                           - append new BLoCs to _blocLogLevelsMap 
-│   │   │   │   └── bloc_log_observer.dart
-│   │   │   ├── log_hub.dart                                - enable/disable logging
-│   │   │   └── logger.dart                                 - implement remote logging(Crashlytics, Sentry)
-│   │   ├── router
-│   │   │   └── app_router.dart                             - add routes
-│   │   ├── theme
-│   │   │   ├── app_theme_data.dart                         - modify themes data here
-│   │   │   ├── app_theme_extensions.dart                   - implement theme extensions(theme_tailor)
-│   │   │   ├── app_theme_extensions.tailor.dart
-│   │   │   ├── app_theme_extensions_colors.dart            - add colors froma Figma here
-│   │   │   └── app_theme_extensions_text_styles.dart       - use google_fonts
-│   │   ├── utils                                           - common utils
-│   │   │   ├── dio_options.dart
-│   │   │   └── validators.dart
-│   │   ├── values
-│   │   │   ├── assets.gen.dart                             - generate assets via flutter_gen
-│   │   └── widgets                                         - add common app widgets here
-│   │       ├── app_bar
-│   │       │   ├── category_app_bar.dart
-│   │       │   ├── search_field.dart
-│   │       │   └── template_app_bar.dart
-│   │       ├── app_version.dart                        
-│   │       ├── inherited_dependencies.dart
-│   │       ├── root_view.dart                              - root widget with bottom tabs
-│   │       ├── splash_screen.dart
-│   │       └── wrappers                                    - prefer widget wrappers not constant values
-│   │           ├── clickable.dart
-│   │           ├── disabler.dart
-│   │           └── paddings.dart
-│   ├── features                                            - contains application features
-│   │   ├── auth                                            - typical feature structure
-│   │   │   ├── bloc                                        - flutter_bloc_side_effect + freezed without effects
-│   │   │   │   ├── auth_bloc.dart
-│   │   │   │   ├── auth_bloc.freezed.dart
-│   │   │   │   ├── auth_event.dart
-│   │   │   │   └── auth_state.dart
-│   │   │   ├── clients                                     - use retrofit for REST clients
-│   │   │   │   ├── auth_rest_client.dart       
-│   │   │   │   └── auth_rest_client.g.dart            
-│   │   │   ├── models                                      - use freezed + json_serializable
-│   │   │   │   ├── user.dart
-│   │   │   │   ├── user.freezed.dart
-│   │   │   │   └── user.g.dart
-│   │   │   ├── repository
-│   │   │   │   ├── auth_repository.dart
-│   │   │   │   └── auth_repository_impl.dart
-│   │   │   └── view
-│   │   │        └── auth_view.dart
-│   │   ├── cart
-│   │   │   └── view
-│   │   │       ├── cart_view.dart
-│   │   │       └── detail_view.dart
-│   │   ├── ip_location
-│   │   │   ├── bloc                                        - flutter_bloc_side_effect with side effect example
-│   │   │   │   ├── location_bloc.dart
-│   │   │   │   ├── location_bloc.freezed.dart
-│   │   │   │   ├── location_event.dart
-│   │   │   │   ├── location_side_effect.dart
-│   │   │   │   └── location_state.dart
-│   │   │   ├── clients                                     - retrofit REST client examples
-│   │   │   │   ├── ip
-│   │   │   │   │   ├── ip_rest_client.dart
-│   │   │   │   │   └── ip_rest_client.g.dart
-│   │   │   │   └── ip_info
-│   │   │   │       ├── ip_info_rest_client.dart
-│   │   │   │       └── ip_info_rest_client.g.dart
-│   │   │   ├── models                                      - freezed + json_serializable example
-│   │   │   │   └── ip_location
-│   │   │   │       ├── ip_location.dart
-│   │   │   │       ├── ip_location.freezed.dart
-│   │   │   │       └── ip_location.g.dart
-│   │   │   ├── repository                                  - describe data providing contract to the domain layer in abstraction
-│   │   │   │   ├── ip_location_repository.dart
-│   │   │   │   └── ip_location_repository_impl.dart
-│   │   │   └── view                                        - implement widgets here
-│   │   │       ├── location_view.dart
-│   │   │       └── widgets
-│   │   │           ├── location_info.dart
-│   │   │           └── location_text.dart
-│   │   ├── profile
-│   │   │   └── view
-│   │   │       └── profile_view.dart
-│   │   └── search
-│   │       └── view
-│   │           └── search_view.dart
-└── └── main.dart                                           - entry point to the application
+BASE_URL=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+GOOGLE_OAUTH_REDIRECT_URL=
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+GITHUB_OAUTH_REDIRECT_URL=
+GITHUB_CALLBACK_URL_SCHEME=
+VK_CLIENT_ID=
+VK_CLIENT_SECRET=
+VK_CLIENT_SERVICE=
+OAUTH_CLIENT_ID=
+OAUTH_SCHEME=
+OAUTH_HOST=
+RUSTORE_KEY=
 ```
